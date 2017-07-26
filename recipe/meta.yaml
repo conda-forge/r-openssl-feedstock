@@ -15,7 +15,7 @@ source:
   sha256: 6dd6d1cade4004962d516ad761fff0812beec0232318b385d286761423a5dc39
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win32]
   rpaths:
     - lib/R/lib/
@@ -27,11 +27,11 @@ requirements:
     - posix                # [win]
     - {{native}}toolchain  # [win]
     - gcc                  # [not win]
-    - openssl
+    - openssl 1.0.*
 
   run:
     - r-base
-    - openssl
+    - openssl 1.0.*
     - libgcc  # [not win]
 
 test:
