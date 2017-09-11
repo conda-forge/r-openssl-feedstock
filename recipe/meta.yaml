@@ -50,8 +50,7 @@ about:
     or EC for Diffie Hellman. High-level envelope functions combine RSA and AES for
     encrypting arbitrary sized data. Other utilities include key generators, hash functions
     (md5, sha1, sha256, etc), base64 encoder, a secure random number generator, and
-    'bignum' math methods for manually performing crypto calculations on large multibyte
-    integers.
+    'bignum' math methods for manually performing crypto calculations on large multibyte integers.
   license_family: MIT
 
 extra:
