@@ -1,4 +1,4 @@
-{% set version = '0.9.6' %}
+{% set version = '0.9.7' %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -12,11 +12,12 @@ source:
   url:
     - https://cran.r-project.org/src/contrib/openssl_{{ version }}.tar.gz
     - https://cran.r-project.org/src/contrib/Archive/openssl/openssl_{{ version }}.tar.gz
-  sha256: 6dd6d1cade4004962d516ad761fff0812beec0232318b385d286761423a5dc39
+  sha256: 697d9e86f99270163744538dc3dc4d19d00af89a8570a1d304b110e1d2650e9d
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win32]
+
   rpaths:
     - lib/R/lib/
     - lib/
@@ -31,8 +32,9 @@ requirements:
 
   run:
     - r-base
+    - {{native}}gcc-libs   # [win]
+    - libgcc               # [not win]
     - openssl 1.0.*
-    - libgcc  # [not win]
 
 test:
   commands:
@@ -40,9 +42,8 @@ test:
     - "\"%R%\" -e \"library('openssl')\""  # [win]
 
 about:
-  home: https://github.com/jeroenooms/openssl#readme
+  home: https://github.com/jeroen/openssl#readme
   license: MIT
-  license_file: LICENSE
   summary: Bindings to OpenSSL libssl and libcrypto, plus custom SSH pubkey parsers. Supports
     RSA, DSA and EC curves P-256, P-384 and P-521. Cryptographic signatures can either
     be created and verified manually or via x509 certificates. AES can be used in cbc,
@@ -58,3 +59,5 @@ extra:
   recipe-maintainers:
     - johanneskoester
     - bgruening
+    - daler
+    - jdblischak
