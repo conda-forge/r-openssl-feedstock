@@ -1,4 +1,4 @@
-{% set version = '0.9.7' %}
+{% set version = "1.0.1" %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -12,7 +12,7 @@ source:
   url:
     - https://cran.r-project.org/src/contrib/openssl_{{ version }}.tar.gz
     - https://cran.r-project.org/src/contrib/Archive/openssl/openssl_{{ version }}.tar.gz
-  sha256: 697d9e86f99270163744538dc3dc4d19d00af89a8570a1d304b110e1d2650e9d
+  sha256: 605c05868e26c5d3cbea9748d400371612bcf082322b1cea5c08397e5fa1d8e3
 
 build:
   number: 0
