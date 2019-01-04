@@ -1,5 +1,4 @@
-{% set version = '1.0.2' %}
-
+{% set version = '1.1' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -8,16 +7,14 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: openssl_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/openssl_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/openssl/openssl_{{ version }}.tar.gz
-  sha256: 2c17c6c555b0684b11bf02420dd8d3d83694d1fb4ee6325b44bdb309afbd4eb6
+  sha256: fb5f8d8d856132b8c618cfec3ff19ef7a163c46c9384cb51e65cd131327bbd51
 
 build:
   merge_build_host: True  # [win]
   number: 1000
-
   rpaths:
     - lib/R/lib/
     - lib/
@@ -36,11 +33,9 @@ requirements:
     - {{posix}}make
     - {{posix}}coreutils         # [win]
     - {{posix}}zip               # [win]
-
   host:
     - r-base
     - openssl
-
   run:
     - r-base
     - openssl
@@ -68,9 +63,24 @@ about:
 
 extra:
   recipe-maintainers:
-    - johanneskoester
-    - bgruening
-    - daler
-    - jdblischak
-    - cbrueffer
-    - dbast
+    - conda-forge/r
+
+# Package: openssl
+# Type: Package
+# Title: Toolkit for Encryption, Signatures and Certificates Based on OpenSSL
+# Version: 1.1
+# Authors@R: c(person("Jeroen", "Ooms", role = c("aut", "cre"), email = "jeroen@berkeley.edu", comment = c(ORCID = "0000-0002-4035-0289")), person("Oliver", "Keyes", role = "ctb"))
+# Description: Bindings to OpenSSL libssl and libcrypto, plus custom SSH pubkey parsers. Supports RSA, DSA and EC curves P-256, P-384 and P-521. Cryptographic signatures can either be created and verified manually or via x509 certificates. AES can be used in cbc, ctr or gcm mode for symmetric encryption; RSA for asymmetric (public key) encryption or EC for Diffie Hellman. High-level envelope functions combine RSA and AES for encrypting arbitrary sized data. Other utilities include key generators, hash functions (md5, sha1, sha256, etc), base64 encoder, a secure random number generator, and 'bignum' math methods for manually performing crypto calculations on large multibyte integers.
+# License: MIT + file LICENSE
+# URL: https://github.com/jeroen/openssl#readme
+# BugReports: https://github.com/jeroen/openssl/issues
+# SystemRequirements: OpenSSL >= 1.0.1
+# VignetteBuilder: knitr
+# Suggests: testthat, digest, knitr, rmarkdown, jsonlite, jose
+# RoxygenNote: 6.1.1
+# NeedsCompilation: yes
+# Packaged: 2018-11-15 13:15:06 UTC; jeroen
+# Author: Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>), Oliver Keyes [ctb]
+# Maintainer: Jeroen Ooms <jeroen@berkeley.edu>
+# Repository: CRAN
+# Date/Publication: 2018-11-15 14:20:03 UTC
