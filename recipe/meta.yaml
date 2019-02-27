@@ -1,4 +1,4 @@
-{% set version = '1.1' %}
+{% set version = '1.2' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/openssl_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/openssl/openssl_{{ version }}.tar.gz
-  sha256: fb5f8d8d856132b8c618cfec3ff19ef7a163c46c9384cb51e65cd131327bbd51
+  sha256: 19a590a7f03faaf92834fbda5e4bb77c1d8557e60d6d0f66388e1706aec58dce
 
 build:
   merge_build_host: True  # [win]
-  number: 1002
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -36,10 +36,12 @@ requirements:
   host:
     - r-base
     - openssl
+    - r-askpass
   run:
     - r-base
     - openssl
     - {{native}}gcc-libs         # [win]
+    - r-askpass
 
 test:
   commands:
@@ -68,7 +70,7 @@ extra:
 # Package: openssl
 # Type: Package
 # Title: Toolkit for Encryption, Signatures and Certificates Based on OpenSSL
-# Version: 1.1
+# Version: 1.2
 # Authors@R: c(person("Jeroen", "Ooms", role = c("aut", "cre"), email = "jeroen@berkeley.edu", comment = c(ORCID = "0000-0002-4035-0289")), person("Oliver", "Keyes", role = "ctb"))
 # Description: Bindings to OpenSSL libssl and libcrypto, plus custom SSH pubkey parsers. Supports RSA, DSA and EC curves P-256, P-384 and P-521. Cryptographic signatures can either be created and verified manually or via x509 certificates. AES can be used in cbc, ctr or gcm mode for symmetric encryption; RSA for asymmetric (public key) encryption or EC for Diffie Hellman. High-level envelope functions combine RSA and AES for encrypting arbitrary sized data. Other utilities include key generators, hash functions (md5, sha1, sha256, etc), base64 encoder, a secure random number generator, and 'bignum' math methods for manually performing crypto calculations on large multibyte integers.
 # License: MIT + file LICENSE
@@ -76,11 +78,13 @@ extra:
 # BugReports: https://github.com/jeroen/openssl/issues
 # SystemRequirements: OpenSSL >= 1.0.1
 # VignetteBuilder: knitr
+# Imports: askpass
 # Suggests: testthat, digest, knitr, rmarkdown, jsonlite, jose
 # RoxygenNote: 6.1.1
+# Encoding: UTF-8
 # NeedsCompilation: yes
-# Packaged: 2018-11-15 13:15:06 UTC; jeroen
+# Packaged: 2019-01-16 21:55:08 UTC; jeroen
 # Author: Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>), Oliver Keyes [ctb]
 # Maintainer: Jeroen Ooms <jeroen@berkeley.edu>
 # Repository: CRAN
-# Date/Publication: 2018-11-15 14:20:03 UTC
+# Date/Publication: 2019-01-16 23:00:04 UTC
