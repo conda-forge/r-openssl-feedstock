@@ -1,4 +1,4 @@
-{% set version = "2.0.0" %}
+{% set version = "2.0.1" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,7 +10,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/openssl_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/openssl/openssl_{{ version }}.tar.gz
-  sha256: eb28fde65f33ffb780abb85ab17d724ae55c2b9dbe171155d3dd2d7154ff564b
+  sha256: 1c6771bf1d7bfd65bc3d512e477c28672bb6c30f8689bfdbe474e62ae2e8f36c
 
 build:
   merge_build_host: true  # [win]
