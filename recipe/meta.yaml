@@ -49,7 +49,7 @@ test:
   requires:
     - r-testthat >=2.1.0
     - r-curl >=4.3.3
-    
+    - r-sodium
   source_files:
     - tests/certigo/
     - tests/google.dk/
