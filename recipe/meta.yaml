@@ -1,4 +1,4 @@
-{% set version = "2.0.6" %}
+{% set version = "2.1.0" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,21 +10,22 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/openssl_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/openssl/openssl_{{ version }}.tar.gz
-  sha256: 77f3032a16270f0d1734f269b8d348eedc75b277812854386091143082c1b3f3
+  sha256: 625a2e06ba4197ab7527af377afb39594a2e8d4fe1ae9fcdd6c74a99d956e539
 
 build:
   merge_build_host: true  # [win]
-  number: 1
+  skip: true              # [win]
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - cross-r-base {{ r_base }}  # [build_platform != target_platform]
-    - r-askpass                  # [build_platform != target_platform]
-    - {{ compiler('c') }}              # [not win]
-    - {{ compiler('m2w64_c') }}        # [win]
+    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
+    - r-askpass                    # [build_platform != target_platform]
+    - {{ compiler('c') }}          # [not win]
+    - {{ compiler('m2w64_c') }}    # [win]
     - {{ posix }}filesystem        # [win]
     - {{ posix }}sed               # [win]
     - {{ posix }}grep              # [win]
@@ -41,17 +42,27 @@ requirements:
     - r-askpass
   run:
     - r-base
-    - openssl
     - {{ native }}gcc-libs         # [win]
     - r-askpass
 
 test:
+  requires:
+    - r-testthat >=2.1.0
+    - r-curl >=4.3.3
+    - r-sodium
+  source_files:
+    - tests/certigo/
+    - tests/google.dk/
+    - tests/keys/
+    - tests/testthat/
   commands:
-    - $R -e "library('openssl')"           # [not win]
+    - $R -e "library('openssl')"                                                                  # [not win]
+    - $R -e "testthat::test_dir('tests/testthat/', package='openssl', load_package='installed')"  # [not win]
     - "\"%R%\" -e \"library('openssl')\""  # [win]
 
 about:
-  home: https://github.com/jeroen/openssl#readme
+  home: https://jeroen.r-universe.dev/openssl
+  dev_url: https://github.com/jeroen/openssl
   license: MIT
   summary: Bindings to OpenSSL libssl and libcrypto, plus custom SSH key parsers. Supports RSA, DSA and EC curves P-256, P-384, P-521, and curve25519. Cryptographic signatures can either be created and verified manually or via x509 certificates.  AES can be used in cbc, ctr or gcm mode for symmetric encryption; RSA for asymmetric
     (public key) encryption or EC for Diffie Hellman. High-level envelope functions  combine RSA and AES for encrypting arbitrary sized data. Other utilities include key generators, hash functions (md5, sha1, sha256, etc), base64 encoder, a secure random number generator, and 'bignum' math methods for manually performing
@@ -64,25 +75,3 @@ about:
 extra:
   recipe-maintainers:
     - conda-forge/r
-
-# Package: openssl
-# Type: Package
-# Title: Toolkit for Encryption, Signatures and Certificates Based on OpenSSL
-# Version: 1.4.1
-# Authors@R: c(person("Jeroen", "Ooms", role = c("aut", "cre"), email = "jeroen@berkeley.edu", comment = c(ORCID = "0000-0002-4035-0289")), person("Oliver", "Keyes", role = "ctb"))
-# Description: Bindings to OpenSSL libssl and libcrypto, plus custom SSH key parsers. Supports RSA, DSA and EC curves P-256, P-384, P-521, and curve25519. Cryptographic signatures can either be created and verified manually or via x509 certificates.  AES can be used in cbc, ctr or gcm mode for symmetric encryption; RSA for asymmetric (public key) encryption or EC for Diffie Hellman. High-level envelope functions  combine RSA and AES for encrypting arbitrary sized data. Other utilities include key generators, hash functions (md5, sha1, sha256, etc), base64 encoder, a secure random number generator, and 'bignum' math methods for manually performing crypto  calculations on large multibyte integers.
-# License: MIT + file LICENSE
-# URL: https://github.com/jeroen/openssl#readme
-# BugReports: https://github.com/jeroen/openssl/issues
-# SystemRequirements: OpenSSL >= 1.0.1
-# VignetteBuilder: knitr
-# Imports: askpass
-# Suggests: testthat, digest, knitr, rmarkdown, jsonlite, jose, sodium
-# RoxygenNote: 6.1.1
-# Encoding: UTF-8
-# NeedsCompilation: yes
-# Packaged: 2019-07-16 17:55:20 UTC; jeroen
-# Author: Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>), Oliver Keyes [ctb]
-# Maintainer: Jeroen Ooms <jeroen@berkeley.edu>
-# Repository: CRAN
-# Date/Publication: 2019-07-18 06:35:27 UTC
