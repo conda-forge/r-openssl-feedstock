@@ -9,7 +9,7 @@ cran_mirror:
 m2w64_c_compiler:
 - gcc
 m2w64_c_compiler_version:
-- '13'
+- '14'
 openssl:
 - '3'
 pin_run_as_build:
