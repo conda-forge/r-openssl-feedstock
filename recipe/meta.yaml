@@ -1,4 +1,4 @@
-{% set version = "2.4.0" %}
+{% set version = "2.4.1" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,7 +9,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/openssl_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/openssl/openssl_{{ version }}.tar.gz
-  sha256: 75ccbde2e52fc3f13c146eab3d30aa3d3a80ab66fa203b9b40d09b1f2a0fcd85
+  sha256: ffa7ba564f9258c13bf76242b6f967b2c53a8944a0590800e249c8e0ae92d63c
 
 build:
   number: 0
